@@ -1,6 +1,6 @@
 {
   "name": "@hughescr/eslint-config-default",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Default base config for eslint",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,7 @@
   "author": "Craig Hughes <craig.npm@rungie.com>",
   "license": "BSD-3-Clause",
   "devDependencies": {
+    "eslint": "^2.10.2",
     "eslint-plugin-promise": "^1.1.0"
   }
 }

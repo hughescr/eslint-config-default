@@ -95,7 +95,7 @@ module.exports = {
         'no-warning-comments':         [ 'warn', { terms: ['todo', 'fixme', 'xxx'], location: 'anywhere' }],
         'object-curly-spacing':        ['warn', 'always', { arraysInObjects: true }],
         'padded-blocks':               ['warn', 'never'],
-        'prefer-arrow-callback':       'warn',
+        'prefer-arrow-callback':       ['warn', { allowNamesFunctions: true }],
         'prefer-const':                'warn',
         'quote-props':                 ['warn', 'as-needed', { keywords: true, numbers: true }],
         quotes:                        ['warn', 'single', 'avoid-escape'],

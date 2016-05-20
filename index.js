@@ -14,10 +14,6 @@ module.exports = {
         node: true,
         browser: true,
     },
-    globals:
-    {
-        logger: true,
-    },
     extends: 'eslint:recommended',
     plugins:
     [

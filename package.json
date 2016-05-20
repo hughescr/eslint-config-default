@@ -1,0 +1,15 @@
+{
+  "name": "@hughescr/eslint-config-default",
+  "version": "0.9.0",
+  "description": "Default base config for eslint",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postversion": "git commit -m \"Bump package version to $npm_package_version\" package.json; git flow release start $npm_package_version; git flow release finish -m $npm_package_version $npm_package_version; git checkout develop; git merge master"
+  },
+  "author": "Craig Hughes <craig.npm@rungie.com>",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "eslint-plugin-promise": "^1.1.0"
+  }
+}

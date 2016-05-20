@@ -1,6 +1,6 @@
 {
   "name": "@hughescr/eslint-config-default",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Default base config for eslint",
   "main": "index.js",
   "scripts": {

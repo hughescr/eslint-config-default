@@ -9,7 +9,7 @@
   },
   "author": "Craig Hughes <craig.npm@rungie.com>",
   "license": "BSD-3-Clause",
-  "devDependencies": {
+  "dependencies": {
     "eslint": "^3.0.1",
     "eslint-plugin-promise": "^1.1.0"
   }

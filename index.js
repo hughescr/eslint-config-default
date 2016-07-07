@@ -2,12 +2,6 @@
 
 module.exports = {
 
-    parserOptions:
-    {
-        ecmaVersion: 6,
-        globalReturn: true,
-        impliedStrict: true,
-    },
     env:
     {
         es6: true,
@@ -22,8 +16,9 @@ module.exports = {
     rules:
     {
         'promise/catch-or-return':     'warn',
-        'promise/always-return':    'warn',
+        'promise/always-return':       'warn',
         'promise/param-names':         'warn',
+
         'array-bracket-spacing':       ['warn', 'never', { arraysInArrays: false, objectsInArrays: false }],
         'array-callback-return':       'warn',
         'arrow-spacing':               ['warn', { before: true, after: true }],

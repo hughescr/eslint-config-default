@@ -6,6 +6,10 @@
   "version": "1.1.4",
   "description": "Default base config for eslint",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hughescr/eslint-config-default.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postversion": "git commit -m \"Bump package version to $npm_package_version\" package.json; git flow release start $npm_package_version; git flow release finish -m $npm_package_version $npm_package_version; git checkout develop; git merge master"
@@ -17,5 +21,9 @@
   },
   "devDependencies": {
     "eslint": "^3.0.1"
+  },
+  "peerDependencies": {
+    "eslint": "^3.0.1",
+    "eslint-plugin-promise": "^2.0.0"
   }
 }

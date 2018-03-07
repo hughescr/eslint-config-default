@@ -1,20 +1,18 @@
 'use strict';
 
 module.exports = {
-
-    env:
-    {
+    env: {
         es6: true,
         node: true,
         browser: true,
     },
+
     'extends': 'eslint:recommended',
-    plugins:
-    [
+
+    plugins: [
         'promise',
     ],
-    rules:
-    {
+    rules: {
         'promise/catch-or-return':     'warn',
         'promise/always-return':       'warn',
         'promise/param-names':         'warn',
@@ -24,7 +22,7 @@ module.exports = {
         'arrow-spacing':               ['warn', { before: true, after: true }],
         'block-scoped-var':            'error',
         'block-spacing':               ['warn', 'always'],
-        'brace-style':                 ['warn', 'allman', { allowSingleLine: true }],
+        'brace-style':                 ['warn', '1tbs', { allowSingleLine: true }],
         'callback-return':             ['error', ['callback', 'cb', 'next', 'done']],
         'comma-dangle':                ['warn', 'always-multiline'],
         'comma-spacing':               ['warn', { before: false, after: true }],
@@ -34,8 +32,7 @@ module.exports = {
         'dot-notation':                'warn',
         'eol-last':                    'warn',
         'handle-callback-err':         'warn',
-        'keyword-spacing':             ['warn',
-        {
+        'keyword-spacing':             ['warn', {
             before: true,
             after:  true,
             overrides:
@@ -63,7 +60,7 @@ module.exports = {
         'no-loop-func':                'error',
         'no-negated-in-lhs':           'warn',
         'no-nested-ternary':           'error',
-        'no-param-reassign':        ['warn', { props: false }],
+        'no-param-reassign':           ['warn', { props: false }],
         'no-path-concat':              'error',
         'no-redeclare':                ['error', { builtinGlobals: true }],
         'no-return-assign':            ['error', 'always'],
@@ -101,5 +98,4 @@ module.exports = {
         'use-isnan':                   'error',
         'valid-typeof':                'warn',
     },
-
 };

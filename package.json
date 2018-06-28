@@ -23,7 +23,7 @@
     "eslint": "^5.0.1"
   },
   "peerDependencies": {
-    "eslint": "^4.3.0",
+    "eslint": "^5.0.1",
     "eslint-plugin-promise": "^3.5.0"
   }
 }

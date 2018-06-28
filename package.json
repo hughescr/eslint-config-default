@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Default base config for eslint",
   "main": "index.js",
   "repository": {
@@ -23,7 +23,7 @@
     "eslint": "^5.0.1"
   },
   "peerDependencies": {
-    "eslint": "^4.3.0",
+    "eslint": "^5.0.1",
     "eslint-plugin-promise": "^3.5.0"
   }
 }

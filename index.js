@@ -94,7 +94,7 @@ module.exports = {
         semi:                          ['error', 'always'],
         'semi-spacing':                ['error', { before: false, after: true }],
         'space-before-blocks':         ['warn', { functions: 'always', keywords: 'always' }],
-        'space-before-function-paren': ['warn', { anonymous: 'always', named: 'never', asyncArrow: 'always' }],
+        'space-before-function-paren': ['warn', { anonymous: 'never', named: 'never', asyncArrow: 'always' }],
         'space-in-parens':             ['warn', 'never'],
         'space-infix-ops':             'warn',
         'space-unary-ops':             ['warn', { words: true, nonwords: false }],

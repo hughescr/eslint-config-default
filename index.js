@@ -11,15 +11,18 @@ module.exports = {
         browser: true,
     },
 
-    'extends': 'eslint:recommended',
+    'extends': ['eslint:recommended', 'plugin:node/recommended'],
 
     plugins: [
         'promise',
+        'node',
     ],
     rules: {
         'promise/catch-or-return':     'warn',
         'promise/always-return':       'warn',
         'promise/param-names':         'warn',
+
+        'node/exports-style':          ['warn', 'module.exports'],
 
         'array-bracket-spacing':       ['warn', 'never', { arraysInArrays: false, objectsInArrays: false }],
         'array-callback-return':       'warn',

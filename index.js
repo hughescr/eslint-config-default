@@ -49,6 +49,7 @@ module.exports = {
                 'while':    { after: false },
                 'continue': { after: false },
                 'catch':    { after: false },
+                'switch':   { after: false },
             },
         }],
         'linebreak-style':             ['warn', 'unix'],

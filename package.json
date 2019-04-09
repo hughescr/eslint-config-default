@@ -17,11 +17,11 @@
   "author": "Craig Hughes <craig.npm@rungie.com>",
   "license": "BSD-3-Clause",
   "dependencies": {
-    "eslint-plugin-node": "^7.0.1",
-    "eslint-plugin-promise": "^4.0.1"
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.1.1"
   },
   "devDependencies": {
-    "eslint": "^5.7.0"
+    "eslint": "^5.16.0"
   },
   "peerDependencies": {
     "eslint": "^5.0.1",

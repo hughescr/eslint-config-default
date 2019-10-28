@@ -31,7 +31,7 @@ module.exports = {
         'block-spacing':               ['warn', 'always'],
         'brace-style':                 ['warn', '1tbs', { allowSingleLine: true }],
         'callback-return':             ['error', ['callback', 'cb', 'next', 'done']],
-        'comma-dangle':                ['warn', 'always-multiline'],
+        'comma-dangle':                ['warn', { objects: 'only-multiline', arrays: 'only-multiline', functions: 'never', imports: 'never', exports: 'never' }],
         'comma-spacing':               ['warn', { before: false, after: true }],
         'comma-style':                 ['error', 'last'],
         complexity:                    ['warn', 15],

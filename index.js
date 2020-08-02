@@ -11,11 +11,12 @@ module.exports = {
         browser: true,
     },
 
-    'extends': ['eslint:recommended', 'plugin:node/recommended'],
+    'extends': ['eslint:recommended', 'plugin:node/recommended', 'plugin:sonarjs/recommended'],
 
     plugins: [
         'promise',
         'node',
+        'sonarjs',
     ],
     rules: {
         'promise/catch-or-return':     'warn',
@@ -23,6 +24,9 @@ module.exports = {
         'promise/param-names':         'warn',
 
         'node/exports-style':          ['warn', 'module.exports'],
+
+        'sonarjs/no-duplicate-string': 'warn',
+        'sonarjs/no-identical-functions': 'warn',
 
         'array-bracket-spacing':       ['warn', 'never', { arraysInArrays: false, objectsInArrays: false }],
         'array-callback-return':       'warn',

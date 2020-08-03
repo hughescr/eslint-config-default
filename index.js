@@ -2,7 +2,7 @@
 
 module.exports = {
     parserOptions: {
-        ecmaVersion: 9,
+        ecmaVersion: 2020,
     },
 
     env: {
@@ -11,7 +11,7 @@ module.exports = {
         browser: true,
     },
 
-    'extends': ['eslint:recommended', 'plugin:lodash/recommended', 'plugin:node/recommended', 'plugin:sonarjs/recommended'],
+    'extends': ['eslint:recommended', 'plugin:eslint-comments/recommended', 'plugin:lodash/recommended', 'plugin:node/recommended', 'plugin:sonarjs/recommended'],
 
     plugins: [
         'lodash',
@@ -20,6 +20,14 @@ module.exports = {
         'sonarjs',
     ],
     rules: {
+        'eslint-comments/disable-enable-pair':   ['warn', { allowWholeFile: true }],
+        'eslint-comments/no-aggregating-enable': 'off',
+        'eslint-comments/no-duplicate-disable':  'warn',
+        'eslint-comments/no-unlimited-disable':  'warn',
+        'eslint-comments/no-unused-disable':     'warn',
+        'eslint-comments/no-unused-enable':      'warn',
+        'eslint-comments/require-description':   'warn',
+
         'lodash/callback-binding':        'warn',
         'lodash/chain-style':             ['warn', 'as-needed'],
         'lodash/chaining':                ['warn', 'always', 2],
@@ -69,7 +77,7 @@ module.exports = {
 
         'node/exports-style':          ['warn', 'module.exports'],
 
-        'sonarjs/no-duplicate-string': 'warn',
+        'sonarjs/no-duplicate-string':    'warn',
         'sonarjs/no-identical-functions': 'warn',
 
         'array-bracket-spacing':       ['warn', 'never', { arraysInArrays: false, objectsInArrays: false }],

@@ -11,7 +11,14 @@ module.exports = {
         browser: true,
     },
 
-    'extends': ['eslint:recommended', 'plugin:eslint-comments/recommended', 'plugin:lodash/recommended', 'plugin:node/recommended', 'plugin:sonarjs/recommended'],
+    'extends': [
+        'eslint:recommended',
+        'plugin:eslint-comments/recommended',
+        'plugin:lodash/recommended',
+        'plugin:node/recommended',
+        'plugin:regexp/recommended',
+        'plugin:sonarjs/recommended'
+    ],
 
     plugins: [
         'lodash',
@@ -76,6 +83,23 @@ module.exports = {
         'promise/param-names':         'warn',
 
         'node/exports-style':          ['warn', 'module.exports'],
+
+        'regexp/match-any':                    'warn',
+        'regexp/no-assertion-capturing-group': 'warn',
+        'regexp/no-dupe-characters-character-class': 'warn',
+        'regexp/no-empty-group': 'warn',
+        'regexp/no-empty-lookarounds-assertion': 'warn',
+        'regexp/no-escape-backspace': 'warn',
+        'regexp/no-invisible-character': 'warn',
+        'regexp/no-octal': 'warn',
+        'regexp/no-useless-exactly-quantifier': 'warn',
+        'regexp/no-useless-two-nums-quantifier': 'warn',
+        'regexp/prefer-d': 'warn',
+        'regexp/prefer-plus-quantifier': 'warn',
+        'regexp/prefer-question-quantifier': 'warn',
+        'regexp/prefer-star-quantifier': 'warn',
+        'regexp/prefer-t': 'warn',
+        'regexp/prefer-w': 'warn',
 
         'sonarjs/no-duplicate-string':    'warn',
         'sonarjs/no-identical-functions': 'warn',

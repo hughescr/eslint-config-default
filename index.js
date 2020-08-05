@@ -31,9 +31,11 @@ module.exports = {
         'eslint-comments/disable-enable-pair':   ['warn', { allowWholeFile: true }],
         'eslint-comments/no-aggregating-enable': 'off',
         'eslint-comments/no-duplicate-disable':  'warn',
+        'eslint-comments/no-restricted-disable': 'off',
         'eslint-comments/no-unlimited-disable':  'warn',
         'eslint-comments/no-unused-disable':     'warn',
         'eslint-comments/no-unused-enable':      'warn',
+        'eslint-comments/no-use':                ['warn', { allow: ['eslint-disable', 'eslint-enable', 'eslint-disable-line', 'eslint-disable-next-line'] }],
         'eslint-comments/require-description':   'warn',
 
         'lodash/callback-binding':        'warn',

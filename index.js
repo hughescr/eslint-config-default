@@ -15,6 +15,7 @@ module.exports = {
         'eslint:recommended',
         'plugin:eslint-comments/recommended',
         'plugin:lodash/recommended',
+        'plugin:promise/recommended',
         'plugin:node/recommended',
         'plugin:regexp/recommended',
         'plugin:sonarjs/recommended'
@@ -78,9 +79,9 @@ module.exports = {
         'lodash/prop-shorthand':          ['warn', 'always'],
         'lodash/unwrap':                  'warn',
 
-        'promise/catch-or-return':     'warn',
-        'promise/always-return':       'warn',
-        'promise/param-names':         'warn',
+        // 'promise/always-return':       'warn',
+        // 'promise/catch-or-return':     'warn',
+        // 'promise/param-names':         'warn',
 
         'node/exports-style':          ['warn', 'module.exports'],
 

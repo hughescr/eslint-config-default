@@ -24,8 +24,8 @@
     "eslint-formatter-git-log": "^0.5.3",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-lodash": "^7.1.0",
-    "eslint-plugin-node": "^7.0.1",
-    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-regexp": "^0.1.1",
     "eslint-plugin-sonarjs": "^0.5.0"
   },

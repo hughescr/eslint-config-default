@@ -21,6 +21,7 @@
   "author": "Craig Hughes <craig.npm@rungie.com>",
   "license": "BSD-3-Clause",
   "dependencies": {
+    "eslint-formatter-git-log": "^0.5.3",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-lodash": "^7.1.0",
     "eslint-plugin-node": "^7.0.1",

@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "2.4.9",
+  "version": "2.8.3",
   "description": "Default base config for eslint",
   "main": "index.js",
   "repository": {
@@ -12,20 +12,25 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postversion": "git commit -m \"Bump package version to $npm_package_version\" package.json; git flow release start $npm_package_version; git flow release finish -m $npm_package_version $npm_package_version; git checkout develop; git merge master"
+    "postversion": "git commit -m \"Bump package version to $npm_package_version\" package.json; git flow release start $npm_package_version; git flow release finish -m $npm_package_version $npm_package_version; git checkout develop; git merge master",
+    "omitted-rules": "eslint-index .eslintrc.js -d -s omitted",
+    "disabled-rules": "eslint-index .eslintrc.js -d -s off",
+    "error-rules": "eslint-index .eslintrc.js -d -s error",
+    "warn-rules": "eslint-index .eslintrc.js -d -s warn"
   },
   "author": "Craig Hughes <craig.npm@rungie.com>",
   "license": "BSD-3-Clause",
   "dependencies": {
+    "eslint-formatter-git-log": "^0.5.3",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-lodash": "^7.1.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1"
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-regexp": "^0.1.1",
+    "eslint-plugin-sonarjs": "^0.5.0"
   },
   "devDependencies": {
-    "eslint": "^7.4.0"
-  },
-  "peerDependencies": {
-    "eslint": "^5.0.1",
-    "eslint-plugin-node": "^7.0.1",
-    "eslint-plugin-promise": "^3.5.0"
+    "eslint": "^7.11.0",
+    "eslint-index": "^1.5.0"
   }
 }

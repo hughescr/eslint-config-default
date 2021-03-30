@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "2.8.4",
+  "version": "2.8.5",
   "description": "Default base config for eslint",
   "main": "index.js",
   "repository": {
@@ -23,14 +23,14 @@
   "dependencies": {
     "eslint-formatter-git-log": "^0.5.3",
     "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-lodash": "^7.1.0",
+    "eslint-plugin-lodash": "^7.2.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-regexp": "^0.1.1",
-    "eslint-plugin-sonarjs": "^0.5.0"
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-regexp": "^0.6.3",
+    "eslint-plugin-sonarjs": "^0.6.0"
   },
   "devDependencies": {
-    "eslint": "^7.19.0",
+    "eslint": "^7.23.0",
     "eslint-index": "^1.5.0"
   }
 }

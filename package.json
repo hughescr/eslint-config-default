@@ -21,16 +21,16 @@
   "author": "Craig Hughes <craig.npm@rungie.com>",
   "license": "BSD-3-Clause",
   "dependencies": {
-    "eslint-formatter-git-log": "^0.5.3",
+    "eslint-formatter-git-log": "^0.6.4",
     "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-lodash": "^7.2.0",
+    "eslint-plugin-lodash": "^7.4.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.1.0",
-    "eslint-plugin-regexp": "^0.11.0",
-    "eslint-plugin-sonarjs": "^0.7.0"
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-regexp": "^1.7.0",
+    "eslint-plugin-sonarjs": "^0.13.0"
   },
   "devDependencies": {
-    "eslint": "^7.27.0",
+    "eslint": "^8.14.0",
     "eslint-index": "^1.5.0"
   }
 }

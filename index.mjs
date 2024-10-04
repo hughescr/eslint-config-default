@@ -95,7 +95,7 @@ const recommendedRules = {
     '@stylistic/comma-style': ['error', 'last'],
     '@stylistic/eol-last': 'warn',
     '@stylistic/func-call-spacing': 'warn',
-    '@stylistic/indent': ['warn', 4, { SwitchCase: 1 }],
+    '@stylistic/indent': ['warn', 4, { SwitchCase: 1, MemberExpression: 'off' }],
     '@stylistic/keyword-spacing': ['warn', {
         before: true,
         after: true,

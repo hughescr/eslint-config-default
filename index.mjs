@@ -136,6 +136,7 @@ const recommendedRules = {
     'no-console': 'warn',
     'no-const-assign': 'error',
     'no-constant-binary-expression': 'warn',
+    'no-constant-condition': ['warn', { checkLoops: 'allExceptWhileTrue' }],
     'no-constructor-return': 'warn',
     'no-control-regex': 'off',
     'no-delete-var': 'error',

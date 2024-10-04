@@ -4,42 +4,24 @@ Overview
 This is a default configuration set-up for how I like my ESLint to be set up.
 
 ```
-npm install eslint-config-default eslint eslint-plugin-promise
+yarn add -D @hughescr/eslint-config-default eslint
 ```
 
-Then put this in .eslintrc:
+Then put this in `eslint.config.mjs`:
 
 ```
-'use strict';
+import defaultConfig from '@hughescr/eslint-config-default';
 
-module.exports = {
-    'extends': '@hughescr/eslint-config-default',
-};
+export default [
+    defaultConfig.configs.recommended,
+];
 ```
 
 Developer
 ---------
 
-If you want to know which new rules might exist out there which aren't specified:
+If you want to browse the config, find un-configured rules, etc:
 
 ```
-yarn omitted-rules
-```
-
-These rules are turned off:
-
-```
-yarn disabled-rules
-```
-
-Errors:
-
-```
-yarn error-rules
-```
-
-and warnings:
-
-```
-yarn warn-rules
+yarn rules-checkup
 ```

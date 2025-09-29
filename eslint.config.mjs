@@ -1,5 +1,3 @@
-import defaultConfig from './index.mjs';
+import config from './index.mjs';
 
-export default [
-    defaultConfig.configs.recommended,
-];
+export default config;

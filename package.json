@@ -1,6 +1,6 @@
 {
   "name": "@hughescr/eslint-config-default",
-  "version": "3.1.0",
+  "version": "4.0.0",
   "description": "Default base config for eslint",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
   "scripts": {
     "rules-checkup": "eslint --inspect-config",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postversion": "git commit -m \"Bump package version to $npm_package_version\" package.json; git flow release start $npm_package_version; git flow release finish -m $npm_package_version $npm_package_version; git checkout develop; git merge master"
+    "postversion": "git commit -m \"Bump package version to $npm_package_version\" package.json; git flow release start $npm_package_version; git flow release finish -m $npm_package_version $npm_package_version; git checkout develop; git merge main"
   },
   "dependencies": {
     "@eslint/js": "^9.36.0",

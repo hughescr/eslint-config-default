@@ -11,6 +11,7 @@ import tseslint      from 'typescript-eslint';
 import globals       from 'globals';
 import find          from 'lodash/find.js';
 import isArray       from 'lodash/isArray.js';
+import map           from 'lodash/map.js';
 
 const recommendedRules = {
     'eslint-comments/disable-enable-pair':   ['warn', { allowWholeFile: true }],
@@ -218,6 +219,22 @@ const packageJsonConfig = {
 const typescriptFiles = find(tseslint.configs.recommended, config => isArray(config.files) && config.files.length > 0)
                             ?.files ?? ['**/*.ts', '**/*.tsx', '**/*.cts', '**/*.mts'];
 
+const withTypeInformation = config => ({
+    ...config,
+    files:           config.files ?? typescriptFiles,
+    languageOptions: {
+        ...config.languageOptions,
+        parserOptions: {
+            ...(config.languageOptions?.parserOptions ?? {}),
+            projectService:  true,
+            tsconfigRootDir: process.cwd(),
+        },
+    },
+});
+
+const typeCheckedConfigs        = map(tseslint.configs.recommendedTypeChecked, withTypeInformation);
+const stylisticTypeCheckedConfigs = map(tseslint.configs.stylisticTypeChecked, withTypeInformation);
+
 const typescriptOverrides = {
     files: typescriptFiles,
     rules: {
@@ -227,8 +244,8 @@ const typescriptOverrides = {
 
 export default defineConfig(
     javascriptConfig,
-    tseslint.configs.recommended,
-    tseslint.configs.stylistic,
+    ...typeCheckedConfigs,
+    ...stylisticTypeCheckedConfigs,
     typescriptOverrides,
     packageJsonConfig
 );

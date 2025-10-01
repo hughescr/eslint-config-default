@@ -176,6 +176,7 @@ const recommendedRules = {
     'no-warning-comments':           ['warn', { terms: ['todo', 'fixme', 'xxx'], location: 'anywhere' }],
     'prefer-arrow-callback':         ['warn', { allowNamedFunctions: true }],
     'prefer-const':                  'warn',
+    'require-await':                 'off',
     strict:                          ['warn', 'global'],
     'use-isnan':                     'error',
     'valid-typeof':                  'warn',
@@ -239,6 +240,7 @@ const typescriptOverrides = {
     files: typescriptFiles,
     rules: {
         '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+        '@typescript-eslint/require-await':  'off',
     },
 };
 

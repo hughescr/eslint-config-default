@@ -143,7 +143,6 @@ const recommendedRules = {
     'no-control-regex':             'off',
     'no-eval':                      'warn',
     'no-fallthrough':               ['error', { allowEmptyCase: true, reportUnusedFallthroughComment: true }],
-    'no-implied-eval':              'warn',
     'no-loop-func':                 'error',
     'no-nested-ternary':            'error',
     'no-param-reassign':            ['warn', { props: false }],
@@ -156,7 +155,7 @@ const recommendedRules = {
     'no-unmodified-loop-condition': 'error',
     'no-unneeded-ternary':          'error',
     'no-unused-expressions':        ['error', { allowShortCircuit: true, allowTernary: true }],
-    'no-unused-vars':               ['warn', { args: 'after-used', argsIgnorePattern: '^_' }],
+    'no-unused-vars':               ['warn', { args: 'after-used', argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
     'no-use-before-define':         ['error', 'nofunc'],
     'no-useless-call':              'error',
     'no-useless-concat':            'error',
@@ -168,6 +167,32 @@ const recommendedRules = {
     'require-await':                'off',
     strict:                         ['warn', 'global'],
 };
+
+function buildTypescriptExtensionRules(rules) {
+    const jsToTsMap = {};
+    for(const [tsRuleName, tsRule] of Object.entries(tseslint.plugin.rules)) {
+        const base = tsRule?.meta?.docs?.extendsBaseRule;
+        if(base === true) {
+            jsToTsMap[tsRuleName] = tsRuleName;
+        // eslint-disable-next-line lodash/prefer-lodash-typecheck -- avoiding lodash dependency for this simple config package
+        } else if(typeof base === 'string') {
+            jsToTsMap[base] = tsRuleName;
+        }
+    }
+
+    const tsOverrides = {};
+    for(const [ruleName, config] of Object.entries(rules)) {
+        if(ruleName.includes('/')) {   // skip plugin-namespaced rules
+            continue;
+        }
+        const tsRuleName = jsToTsMap[ruleName];
+        if(tsRuleName) {
+            tsOverrides[ruleName] = 'off';
+            tsOverrides[`@typescript-eslint/${tsRuleName}`] = config;
+        }
+    }
+    return tsOverrides;
+}
 
 const javascriptConfig = {
     files:           ['**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}'],
@@ -220,21 +245,19 @@ const withTypeInformation = config => ({
     },
 });
 
-// eslint-disable-next-line lodash/prefer-lodash-method -- intentionally using native .map() on config arrays
+// eslint-disable-next-line lodash/prefer-lodash-method -- avoiding lodash dependency for this simple config package
 const typeCheckedConfigs          = tseslint.configs.recommendedTypeChecked.map(withTypeInformation);
-// eslint-disable-next-line lodash/prefer-lodash-method -- intentionally using native .map() on config arrays
+// eslint-disable-next-line lodash/prefer-lodash-method -- avoiding lodash dependency for this simple config package
 const stylisticTypeCheckedConfigs = tseslint.configs.stylisticTypeChecked.map(withTypeInformation);
+
+const typescriptExtensionRules = {
+    files: typescriptFiles,
+    rules: buildTypescriptExtensionRules(recommendedRules),
+};
 
 const typescriptOverrides = {
     files: typescriptFiles,
     rules: {
-        '@typescript-eslint/no-unused-vars':              ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
-        '@typescript-eslint/require-await':               'off',
-        'no-use-before-define':                           'off',
-        '@typescript-eslint/no-use-before-define':        ['error', 'nofunc'],
-        'no-shadow':                                      'off',
-        '@typescript-eslint/no-shadow':                   'warn',
-        '@typescript-eslint/no-unused-expressions':       ['error', { allowShortCircuit: true, allowTernary: true }],
         '@typescript-eslint/consistent-type-imports':     'warn',
         '@typescript-eslint/switch-exhaustiveness-check': 'warn',
     },
@@ -244,6 +267,7 @@ export default defineConfig(
     javascriptConfig,
     ...typeCheckedConfigs,
     ...stylisticTypeCheckedConfigs,
+    typescriptExtensionRules,
     typescriptOverrides,
     packageJsonConfig
 );

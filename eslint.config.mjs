@@ -1,3 +1,1 @@
-import config from './index.mjs';
-
-export default config;
+export { default } from './index.mjs';

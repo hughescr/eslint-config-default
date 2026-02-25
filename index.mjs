@@ -1,15 +1,18 @@
-import { defineConfig } from 'eslint/config';
-import js            from '@eslint/js';
-import n             from 'eslint-plugin-n';
-import lodash        from 'eslint-plugin-lodash';
-import promise       from 'eslint-plugin-promise';
-import comments      from '@eslint-community/eslint-plugin-eslint-comments';
 import { fixupPluginRules } from '@eslint/compat';
-import regexp        from 'eslint-plugin-regexp';
+import js            from '@eslint/js';
+import comments      from '@eslint-community/eslint-plugin-eslint-comments';
 import stylistic     from '@stylistic/eslint-plugin';
+import { defineConfig } from 'eslint/config';
+import importX       from 'eslint-plugin-import-x';
+import lodash        from 'eslint-plugin-lodash';
+import n             from 'eslint-plugin-n';
 import packageJson   from 'eslint-plugin-package-json';
-import tseslint      from 'typescript-eslint';
+import promise       from 'eslint-plugin-promise';
+import regexp        from 'eslint-plugin-regexp';
+import sonarjs       from 'eslint-plugin-sonarjs';
+import unicorn       from 'eslint-plugin-unicorn';
 import globals       from 'globals';
+import tseslint      from 'typescript-eslint';
 
 const recommendedRules = {
     '@eslint-community/eslint-comments/disable-enable-pair':   ['warn', { allowWholeFile: true }],
@@ -30,7 +33,7 @@ const recommendedRules = {
     'lodash/collection-return':       'warn',
     'lodash/consistent-compose':      ['warn', 'flow'],
     'lodash/identity-shorthand':      ['warn', 'always'],
-    'lodash/import-scope':            'off',
+    'lodash/import-scope':            ['warn', 'method'],
     'lodash/matches-prop-shorthand':  'warn',
     'lodash/matches-shorthand':       ['warn', 'always', 3],
     'lodash/no-commit':               'warn',
@@ -70,10 +73,12 @@ const recommendedRules = {
     'n/no-extraneous-import': 'off',
     'n/no-path-concat':       'error',
     'n/no-sync':              'warn',
+    'n/no-callback-literal':  'error',
 
     'promise/always-return':   'warn',
     'promise/catch-or-return': 'warn',
     'promise/param-names':     'warn',
+    'promise/prefer-catch':    'warn',
 
     'regexp/match-any':                          'warn',
     'regexp/no-dupe-characters-character-class': 'warn',
@@ -89,6 +94,7 @@ const recommendedRules = {
     'regexp/prefer-question-quantifier':         'warn',
     'regexp/prefer-star-quantifier':             'warn',
     'regexp/prefer-w':                           'warn',
+    'regexp/no-super-linear-move':               'warn',
 
     '@stylistic/array-bracket-spacing': ['warn', 'never', { arraysInArrays: false, objectsInArrays: false }],
     '@stylistic/arrow-spacing':         ['warn', { before: true, after: true }],
@@ -166,6 +172,49 @@ const recommendedRules = {
     'prefer-object-spread':         'warn',
     'require-await':                'off',
     strict:                         ['warn', 'global'],
+
+    'no-template-curly-in-string':    'error',
+    'no-unreachable-loop':            'error',
+    'no-await-in-loop':               'warn',
+    'require-atomic-updates':         'warn',
+    'no-new-wrappers':                'error',
+    'no-throw-literal':               'error',
+    'prefer-promise-reject-errors':   'warn',
+    'accessor-pairs':                 'warn',
+    'symbol-description':             'warn',
+    'prefer-template':                'warn',
+    'prefer-exponentiation-operator': 'warn',
+    'logical-assignment-operators':   'warn',
+    'prefer-object-has-own':          'warn',
+    'no-useless-constructor':         'warn',
+    'no-useless-return':              'warn',
+    'no-useless-computed-key':        'warn',
+    'no-useless-rename':              'warn',
+    'object-shorthand':               'warn',
+
+    'unicorn/no-null':               'off',
+    'unicorn/prevent-abbreviations': 'off',
+    'unicorn/filename-case':         ['warn', { cases: { kebabCase: true, pascalCase: true } }],
+
+    'import-x/no-duplicates':            'warn',
+    'import-x/no-self-import':           'error',
+    'import-x/no-cycle':                 'warn',
+    'import-x/no-useless-path-segments': 'warn',
+    'import-x/newline-after-import':     'warn',
+    'import-x/no-mutable-exports':       'warn',
+    'import-x/order':                    ['warn', {
+        groups:             ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+        'newlines-between': 'never',
+        alphabetize:        { order: 'asc', caseInsensitive: true },
+    }],
+    'import-x/no-extraneous-dependencies':      ['error', { devDependencies: ['**/*.test.*', '**/*.spec.*', '**/test/**', '**/scripts/**'] }],
+    'import-x/no-empty-named-blocks':           'warn',
+    'import-x/no-anonymous-default-export':     'warn',
+    'import-x/consistent-type-specifier-style': ['warn', 'prefer-inline'],
+
+    'sonarjs/cognitive-complexity':    ['warn', 15],
+    'sonarjs/no-collapsible-if':       'warn',
+    'sonarjs/prefer-immediate-return': 'warn',
 };
 
 function buildTypescriptExtensionRules(rules) {
@@ -209,6 +258,9 @@ const javascriptConfig = {
         promise,
         '@eslint-community/eslint-comments': comments,
         regexp,
+        unicorn,
+        'import-x':                          importX,
+        sonarjs,
     },
     rules: {
         ...(js.configs.recommended.rules),
@@ -218,6 +270,8 @@ const javascriptConfig = {
         ...(promise.configs.recommended.rules),
         ...(comments.configs.recommended.rules),
         ...(regexp.configs.recommended.rules),
+        ...(unicorn.configs.recommended.rules),
+        ...(sonarjs.configs.recommended.rules),
         ...recommendedRules,
     },
 };
@@ -238,7 +292,7 @@ const withTypeInformation = config => ({
     languageOptions: {
         ...config.languageOptions,
         parserOptions: {
-            ...(config.languageOptions?.parserOptions ?? {}),
+            ...config.languageOptions?.parserOptions,
             projectService:  true,
             tsconfigRootDir: process.cwd(),
         },
@@ -246,9 +300,9 @@ const withTypeInformation = config => ({
 });
 
 // eslint-disable-next-line lodash/prefer-lodash-method -- avoiding lodash dependency for this simple config package
-const typeCheckedConfigs          = tseslint.configs.recommendedTypeChecked.map(withTypeInformation);
+const typeCheckedConfigs          = tseslint.configs.recommendedTypeChecked.map(config => withTypeInformation(config));
 // eslint-disable-next-line lodash/prefer-lodash-method -- avoiding lodash dependency for this simple config package
-const stylisticTypeCheckedConfigs = tseslint.configs.stylisticTypeChecked.map(withTypeInformation);
+const stylisticTypeCheckedConfigs = tseslint.configs.stylisticTypeChecked.map(config => withTypeInformation(config));
 
 const typescriptExtensionRules = {
     files: typescriptFiles,
@@ -258,8 +312,13 @@ const typescriptExtensionRules = {
 const typescriptOverrides = {
     files: typescriptFiles,
     rules: {
-        '@typescript-eslint/consistent-type-imports':     'warn',
-        '@typescript-eslint/switch-exhaustiveness-check': 'warn',
+        '@typescript-eslint/consistent-type-imports':            'warn',
+        '@typescript-eslint/switch-exhaustiveness-check':        'warn',
+        '@typescript-eslint/return-await':                       ['warn', 'in-try-catch'],
+        '@typescript-eslint/no-unnecessary-condition':           ['warn', { allowConstantLoopConditions: true }],
+        '@typescript-eslint/no-confusing-void-expression':       ['warn', { ignoreArrowShorthand: true }],
+        '@typescript-eslint/no-misused-spread':                  'warn',
+        '@typescript-eslint/no-unnecessary-template-expression': 'warn',
     },
 };
 

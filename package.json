@@ -1,6 +1,6 @@
 {
   "name": "@hughescr/eslint-config-default",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Default base config for eslint",
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "rules-checkup": "eslint --inspect-config",
+    "rules-checkup": "eslint-config-inspector",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postversion": "git commit -m \"Bump package version to $npm_package_version\" package.json; git flow release start $npm_package_version; git flow release finish -m $npm_package_version $npm_package_version; git checkout develop; git merge main"
   },
@@ -26,12 +26,15 @@
     "@stylistic/eslint-plugin": "^5.9.0",
     "eslint": "^10.0.2",
     "eslint-formatter-git-log": "^0.6.4",
+    "eslint-plugin-import-x": "^4.16.1",
     "eslint-plugin-lodash": "^8.0.0",
     "eslint-plugin-n": "^17.24.0",
     "eslint-plugin-package-json": "^0.89.1",
     "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-regexp": "^3.0.0",
-    "lodash": "^4.17.23",
+    "eslint-plugin-sonarjs": "^4.0.0",
+    "eslint-plugin-unicorn": "^63.0.0",
+    "globals": "^17.3.0",
     "typescript-eslint": "^8.56.1"
   },
   "devDependencies": {

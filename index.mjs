@@ -1,18 +1,18 @@
-import { defineConfig } from 'eslint/config';
-import js            from '@eslint/js';
-import n             from 'eslint-plugin-n';
-import lodash        from 'eslint-plugin-lodash';
-import promise       from 'eslint-plugin-promise';
-import comments      from '@eslint-community/eslint-plugin-eslint-comments';
 import { fixupPluginRules } from '@eslint/compat';
-import regexp        from 'eslint-plugin-regexp';
+import js            from '@eslint/js';
+import comments      from '@eslint-community/eslint-plugin-eslint-comments';
 import stylistic     from '@stylistic/eslint-plugin';
+import { defineConfig } from 'eslint/config';
+import importX       from 'eslint-plugin-import-x';
+import lodash        from 'eslint-plugin-lodash';
+import n             from 'eslint-plugin-n';
 import packageJson   from 'eslint-plugin-package-json';
-import tseslint      from 'typescript-eslint';
+import promise       from 'eslint-plugin-promise';
+import regexp        from 'eslint-plugin-regexp';
+import sonarjs       from 'eslint-plugin-sonarjs';
+import unicorn       from 'eslint-plugin-unicorn';
 import globals       from 'globals';
-import find          from 'lodash/find.js';
-import isArray       from 'lodash/isArray.js';
-import map           from 'lodash/map.js';
+import tseslint      from 'typescript-eslint';
 
 const recommendedRules = {
     '@eslint-community/eslint-comments/disable-enable-pair':   ['warn', { allowWholeFile: true }],
@@ -33,7 +33,7 @@ const recommendedRules = {
     'lodash/collection-return':       'warn',
     'lodash/consistent-compose':      ['warn', 'flow'],
     'lodash/identity-shorthand':      ['warn', 'always'],
-    'lodash/import-scope':            'off',
+    'lodash/import-scope':            ['warn', 'method'],
     'lodash/matches-prop-shorthand':  'warn',
     'lodash/matches-shorthand':       ['warn', 'always', 3],
     'lodash/no-commit':               'warn',
@@ -73,10 +73,12 @@ const recommendedRules = {
     'n/no-extraneous-import': 'off',
     'n/no-path-concat':       'error',
     'n/no-sync':              'warn',
+    'n/no-callback-literal':  'error',
 
     'promise/always-return':   'warn',
     'promise/catch-or-return': 'warn',
     'promise/param-names':     'warn',
+    'promise/prefer-catch':    'warn',
 
     'regexp/match-any':                          'warn',
     'regexp/no-dupe-characters-character-class': 'warn',
@@ -92,6 +94,7 @@ const recommendedRules = {
     'regexp/prefer-question-quantifier':         'warn',
     'regexp/prefer-star-quantifier':             'warn',
     'regexp/prefer-w':                           'warn',
+    'regexp/no-super-linear-move':               'warn',
 
     '@stylistic/array-bracket-spacing': ['warn', 'never', { arraysInArrays: false, objectsInArrays: false }],
     '@stylistic/arrow-spacing':         ['warn', { before: true, after: true }],
@@ -99,7 +102,6 @@ const recommendedRules = {
     '@stylistic/brace-style':           ['warn', '1tbs', { allowSingleLine: true }],
     '@stylistic/comma-dangle':          ['warn', { objects: 'only-multiline', arrays: 'only-multiline', functions: 'never', imports: 'never', exports: 'never' }],
     '@stylistic/comma-spacing':         ['warn', { before: false, after: true }],
-    '@stylistic/comma-style':           ['error', 'last'],
     '@stylistic/eol-last':              'warn',
     '@stylistic/function-call-spacing': 'warn',
     '@stylistic/indent':                ['warn', 4, { SwitchCase: 1, MemberExpression: 'off' }],
@@ -126,64 +128,123 @@ const recommendedRules = {
     '@stylistic/quote-props':                 ['warn', 'as-needed', { keywords: true, numbers: true }],
     '@stylistic/quotes':                      ['warn', 'single', { avoidEscape: true, allowTemplateLiterals: 'avoidEscape' }],
     '@stylistic/semi':                        ['error', 'always'],
-    '@stylistic/semi-spacing':                ['error', { before: false, after: true }],
     '@stylistic/space-before-blocks':         ['warn', { functions: 'always', keywords: 'always', classes: 'always' }],
     '@stylistic/space-before-function-paren': ['warn', { anonymous: 'never', named: 'never', asyncArrow: 'always' }],
     '@stylistic/space-in-parens':             ['warn', 'never'],
     '@stylistic/space-infix-ops':             'warn',
     '@stylistic/space-unary-ops':             ['warn', { words: true, nonwords: false }],
 
-    'array-callback-return':         'warn',
-    'block-scoped-var':              'error',
-    complexity:                      ['warn', 15],
-    curly:                           ['warn', 'all'],
-    'default-case-last':             'warn',
-    'default-param-last':            'error',
-    'dot-notation':                  'warn',
-    'no-bitwise':                    'warn',
-    'no-console':                    'warn',
-    'no-const-assign':               'error',
-    'no-constant-binary-expression': 'warn',
-    'no-constant-condition':         ['warn', { checkLoops: 'allExceptWhileTrue' }],
-    'no-constructor-return':         'warn',
-    'no-control-regex':              'off',
-    'no-delete-var':                 'error',
-    'no-dupe-args':                  'warn',
-    'no-dupe-else-if':               'error',
-    'no-dupe-keys':                  'warn',
-    'no-duplicate-case':             'warn',
-    'no-eval':                       'warn',
-    'no-fallthrough':                'warn',
-    'no-implied-eval':               'warn',
-    'no-loop-func':                  'error',
-    'no-nested-ternary':             'error',
-    'no-param-reassign':             ['warn', { props: false }],
-    'no-redeclare':                  ['error', { builtinGlobals: true }],
-    'no-return-assign':              ['error', 'always'],
-    'no-self-compare':               'error',
-    'no-sequences':                  'error',
-    'no-unexpected-multiline':       'error',
-    'no-unmodified-loop-condition':  'error',
-    'no-unneeded-ternary':           'error',
-    'no-unreachable':                'error',
-    'no-unsafe-negation':            'warn',
-    'no-unused-expressions':         ['error', { allowShortCircuit: true, allowTernary: true }],
-    'no-unused-vars':                ['warn', { args: 'after-used', argsIgnorePattern: '^_' }],
-    'no-use-before-define':          ['error', 'nofunc'],
-    'no-useless-call':               'error',
-    'no-useless-concat':             'error',
-    'no-useless-escape':             'error',
-    'no-var':                        'warn',
-    'no-warning-comments':           ['warn', { terms: ['todo', 'fixme', 'xxx'], location: 'anywhere' }],
-    'prefer-arrow-callback':         ['warn', { allowNamedFunctions: true }],
-    'prefer-const':                  'warn',
-    'require-await':                 'off',
-    strict:                          ['warn', 'global'],
-    'use-isnan':                     'error',
-    'valid-typeof':                  'warn',
+    'array-callback-return':        'warn',
+    'block-scoped-var':             'error',
+    complexity:                     ['warn', 15],
+    curly:                          ['warn', 'all'],
+    'default-case-last':            'warn',
+    'default-param-last':           'error',
+    'dot-notation':                 'warn',
+    eqeqeq:                         ['warn', 'always'],
+    'no-bitwise':                   'warn',
+    'no-console':                   'warn',
+    'no-constant-condition':        ['warn', { checkLoops: 'allExceptWhileTrue' }],
+    'no-constructor-return':        'warn',
+    'no-control-regex':             'off',
+    'no-eval':                      'warn',
+    'no-fallthrough':               ['error', { allowEmptyCase: true, reportUnusedFallthroughComment: true }],
+    'no-loop-func':                 'error',
+    'no-nested-ternary':            'error',
+    'no-param-reassign':            ['warn', { props: false }],
+    'no-promise-executor-return':   'error',
+    'no-redeclare':                 ['error', { builtinGlobals: true }],
+    'no-return-assign':             ['error', 'always'],
+    'no-self-compare':              'error',
+    'no-sequences':                 'error',
+    'no-shadow':                    'warn',
+    'no-unmodified-loop-condition': 'error',
+    'no-unneeded-ternary':          'error',
+    'no-unused-expressions':        ['error', { allowShortCircuit: true, allowTernary: true }],
+    'no-unused-vars':               ['warn', { args: 'after-used', argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+    'no-use-before-define':         ['error', 'nofunc'],
+    'no-useless-call':              'error',
+    'no-useless-concat':            'error',
+    'no-var':                       'warn',
+    'no-warning-comments':          ['warn', { terms: ['todo', 'fixme', 'xxx'], location: 'anywhere' }],
+    'prefer-arrow-callback':        ['warn', { allowNamedFunctions: true }],
+    'prefer-const':                 'warn',
+    'prefer-object-spread':         'warn',
+    'require-await':                'off',
+    strict:                         ['warn', 'global'],
+
+    'no-template-curly-in-string':    'error',
+    'no-unreachable-loop':            'error',
+    'no-await-in-loop':               'warn',
+    'require-atomic-updates':         'warn',
+    'no-new-wrappers':                'error',
+    'no-throw-literal':               'error',
+    'prefer-promise-reject-errors':   'warn',
+    'accessor-pairs':                 'warn',
+    'symbol-description':             'warn',
+    'prefer-template':                'warn',
+    'prefer-exponentiation-operator': 'warn',
+    'logical-assignment-operators':   'warn',
+    'prefer-object-has-own':          'warn',
+    'no-useless-constructor':         'warn',
+    'no-useless-return':              'warn',
+    'no-useless-computed-key':        'warn',
+    'no-useless-rename':              'warn',
+    'object-shorthand':               'warn',
+
+    'unicorn/no-null':               'off',
+    'unicorn/prevent-abbreviations': 'off',
+    'unicorn/filename-case':         ['warn', { cases: { kebabCase: true, pascalCase: true } }],
+
+    'import-x/no-duplicates':            'warn',
+    'import-x/no-self-import':           'error',
+    'import-x/no-cycle':                 'warn',
+    'import-x/no-useless-path-segments': 'warn',
+    'import-x/newline-after-import':     'warn',
+    'import-x/no-mutable-exports':       'warn',
+    'import-x/order':                    ['warn', {
+        groups:             ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+        'newlines-between': 'never',
+        alphabetize:        { order: 'asc', caseInsensitive: true },
+    }],
+    'import-x/no-extraneous-dependencies':      ['error', { devDependencies: ['**/*.test.*', '**/*.spec.*', '**/test/**', '**/scripts/**'] }],
+    'import-x/no-empty-named-blocks':           'warn',
+    'import-x/no-anonymous-default-export':     'warn',
+    'import-x/consistent-type-specifier-style': ['warn', 'prefer-inline'],
+
+    'sonarjs/cognitive-complexity':    ['warn', 15],
+    'sonarjs/no-collapsible-if':       'warn',
+    'sonarjs/prefer-immediate-return': 'warn',
 };
 
+function buildTypescriptExtensionRules(rules) {
+    const jsToTsMap = {};
+    for(const [tsRuleName, tsRule] of Object.entries(tseslint.plugin.rules)) {
+        const base = tsRule?.meta?.docs?.extendsBaseRule;
+        if(base === true) {
+            jsToTsMap[tsRuleName] = tsRuleName;
+        // eslint-disable-next-line lodash/prefer-lodash-typecheck -- avoiding lodash dependency for this simple config package
+        } else if(typeof base === 'string') {
+            jsToTsMap[base] = tsRuleName;
+        }
+    }
+
+    const tsOverrides = {};
+    for(const [ruleName, config] of Object.entries(rules)) {
+        if(ruleName.includes('/')) {   // skip plugin-namespaced rules
+            continue;
+        }
+        const tsRuleName = jsToTsMap[ruleName];
+        if(tsRuleName) {
+            tsOverrides[ruleName] = 'off';
+            tsOverrides[`@typescript-eslint/${tsRuleName}`] = config;
+        }
+    }
+    return tsOverrides;
+}
+
 const javascriptConfig = {
+    files:           ['**/*.{js,cjs,mjs,jsx,ts,cts,mts,tsx}'],
     name:            '@hughescr/eslint-config/recommended',
     languageOptions: {
         globals: {
@@ -197,6 +258,9 @@ const javascriptConfig = {
         promise,
         '@eslint-community/eslint-comments': comments,
         regexp,
+        unicorn,
+        'import-x':                          importX,
+        sonarjs,
     },
     rules: {
         ...(js.configs.recommended.rules),
@@ -206,6 +270,8 @@ const javascriptConfig = {
         ...(promise.configs.recommended.rules),
         ...(comments.configs.recommended.rules),
         ...(regexp.configs.recommended.rules),
+        ...(unicorn.configs.recommended.rules),
+        ...(sonarjs.configs.recommended.rules),
         ...recommendedRules,
     },
 };
@@ -218,8 +284,7 @@ const packageJsonConfig = {
     },
 };
 
-const typescriptFiles = find(tseslint.configs.recommended, config => isArray(config.files) && config.files.length > 0)
-                            ?.files ?? ['**/*.ts', '**/*.tsx', '**/*.cts', '**/*.mts'];
+const typescriptFiles = ['**/*.ts', '**/*.tsx', '**/*.cts', '**/*.mts'];
 
 const withTypeInformation = config => ({
     ...config,
@@ -227,21 +292,33 @@ const withTypeInformation = config => ({
     languageOptions: {
         ...config.languageOptions,
         parserOptions: {
-            ...(config.languageOptions?.parserOptions ?? {}),
+            ...config.languageOptions?.parserOptions,
             projectService:  true,
             tsconfigRootDir: process.cwd(),
         },
     },
 });
 
-const typeCheckedConfigs        = map(tseslint.configs.recommendedTypeChecked, withTypeInformation);
-const stylisticTypeCheckedConfigs = map(tseslint.configs.stylisticTypeChecked, withTypeInformation);
+// eslint-disable-next-line lodash/prefer-lodash-method -- avoiding lodash dependency for this simple config package
+const typeCheckedConfigs          = tseslint.configs.recommendedTypeChecked.map(config => withTypeInformation(config));
+// eslint-disable-next-line lodash/prefer-lodash-method -- avoiding lodash dependency for this simple config package
+const stylisticTypeCheckedConfigs = tseslint.configs.stylisticTypeChecked.map(config => withTypeInformation(config));
+
+const typescriptExtensionRules = {
+    files: typescriptFiles,
+    rules: buildTypescriptExtensionRules(recommendedRules),
+};
 
 const typescriptOverrides = {
     files: typescriptFiles,
     rules: {
-        '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
-        '@typescript-eslint/require-await':  'off',
+        '@typescript-eslint/consistent-type-imports':            'warn',
+        '@typescript-eslint/switch-exhaustiveness-check':        'warn',
+        '@typescript-eslint/return-await':                       ['warn', 'in-try-catch'],
+        '@typescript-eslint/no-unnecessary-condition':           ['warn', { allowConstantLoopConditions: true }],
+        '@typescript-eslint/no-confusing-void-expression':       ['warn', { ignoreArrowShorthand: true }],
+        '@typescript-eslint/no-misused-spread':                  'warn',
+        '@typescript-eslint/no-unnecessary-template-expression': 'warn',
     },
 };
 
@@ -249,6 +326,7 @@ export default defineConfig(
     javascriptConfig,
     ...typeCheckedConfigs,
     ...stylisticTypeCheckedConfigs,
+    typescriptExtensionRules,
     typescriptOverrides,
     packageJsonConfig
 );

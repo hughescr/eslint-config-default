@@ -4,7 +4,7 @@ Overview
 This is a default configuration set-up for how I like my ESLint to be set up.
 
 ```
-yarn add -D @hughescr/eslint-config-default eslint
+bun add -D @hughescr/eslint-config-default eslint
 ```
 
 Then put this in `eslint.config.mjs`:
@@ -23,5 +23,5 @@ Developer
 If you want to browse the config, find un-configured rules, etc:
 
 ```
-yarn rules-checkup
+bun run rules-checkup
 ```

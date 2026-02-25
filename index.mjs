@@ -195,8 +195,9 @@ const recommendedRules = {
     'unicorn/no-null':               'off',
     'unicorn/prevent-abbreviations': 'off',
     'unicorn/filename-case':         ['warn', { cases: { kebabCase: true, pascalCase: true } }],
+    'unicorn/catch-error-name':      ['warn', { ignore: [/^e$/, /^err$/, /^error$/] }],
 
-    'import-x/no-duplicates':            'warn',
+    'import-x/no-duplicates':            ['warn', { 'prefer-inline': true }],
     'import-x/no-self-import':           'error',
     'import-x/no-cycle':                 'warn',
     'import-x/no-useless-path-segments': 'warn',
@@ -210,11 +211,12 @@ const recommendedRules = {
     'import-x/no-extraneous-dependencies':      ['error', { devDependencies: ['**/*.test.*', '**/*.spec.*', '**/test/**', '**/scripts/**'] }],
     'import-x/no-empty-named-blocks':           'warn',
     'import-x/no-anonymous-default-export':     'warn',
-    'import-x/consistent-type-specifier-style': ['warn', 'prefer-inline'],
+    'import-x/consistent-type-specifier-style': 'off',
 
     'sonarjs/cognitive-complexity':    ['warn', 15],
     'sonarjs/no-collapsible-if':       'warn',
     'sonarjs/prefer-immediate-return': 'warn',
+    'sonarjs/no-unused-vars':          'off',
 };
 
 function buildTypescriptExtensionRules(rules) {
@@ -312,7 +314,7 @@ const typescriptExtensionRules = {
 const typescriptOverrides = {
     files: typescriptFiles,
     rules: {
-        '@typescript-eslint/consistent-type-imports':            'warn',
+        '@typescript-eslint/consistent-type-imports':            ['warn', { prefer: 'type-imports', fixStyle: 'separate-type-imports' }],
         '@typescript-eslint/switch-exhaustiveness-check':        'warn',
         '@typescript-eslint/return-await':                       ['warn', 'in-try-catch'],
         '@typescript-eslint/no-unnecessary-condition':           ['warn', { allowConstantLoopConditions: true }],

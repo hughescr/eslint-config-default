@@ -1,6 +1,6 @@
 {
   "name": "@hughescr/eslint-config-default",
-  "version": "4.0.1",
+  "version": "5.0.0",
   "description": "Default base config for eslint",
   "repository": {
     "type": "git",
@@ -10,7 +10,9 @@
   "author": "Craig Hughes <craig.npm@rungie.com>",
   "type": "module",
   "exports": "./index.mjs",
-  "files": ["index.mjs"],
+  "files": [
+    "index.mjs"
+  ],
   "sideEffects": false,
   "scripts": {
     "rules-checkup": "eslint --inspect-config",

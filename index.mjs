@@ -192,10 +192,13 @@ const recommendedRules = {
     'no-useless-rename':              'warn',
     'object-shorthand':               'warn',
 
-    'unicorn/no-null':               'off',
-    'unicorn/prevent-abbreviations': 'off',
-    'unicorn/filename-case':         ['warn', { cases: { kebabCase: true, pascalCase: true } }],
-    'unicorn/catch-error-name':      ['warn', { ignore: [/^e$/, /^err$/, /^error$/] }],
+    'unicorn/no-null':                              'off',
+    'unicorn/prevent-abbreviations':                'off',
+    'unicorn/filename-case':                        ['warn', { cases: { kebabCase: true, pascalCase: true } }],
+    'unicorn/catch-error-name':                     ['warn', { ignore: [/^e$/, /^err$/, /^error$/] }],
+    'unicorn/no-useless-error-capture-stack-trace': 'off',
+    'unicorn/no-useless-undefined':                 'off',
+    'unicorn/prefer-at':                            'off',
 
     'import-x/no-duplicates':            ['warn', { 'prefer-inline': true }],
     'import-x/no-self-import':           'error',
@@ -216,6 +219,7 @@ const recommendedRules = {
     'sonarjs/cognitive-complexity':    ['warn', 15],
     'sonarjs/no-collapsible-if':       'warn',
     'sonarjs/prefer-immediate-return': 'warn',
+    'sonarjs/no-undefined-argument':   'off',
     'sonarjs/no-unused-vars':          'off',
 };
 
@@ -314,7 +318,7 @@ const typescriptExtensionRules = {
 const typescriptOverrides = {
     files: typescriptFiles,
     rules: {
-        '@typescript-eslint/consistent-type-imports':            ['warn', { prefer: 'type-imports', fixStyle: 'separate-type-imports' }],
+        '@typescript-eslint/consistent-type-imports':            ['warn', { prefer: 'type-imports', fixStyle: 'inline-type-imports' }],
         '@typescript-eslint/switch-exhaustiveness-check':        'warn',
         '@typescript-eslint/return-await':                       ['warn', 'in-try-catch'],
         '@typescript-eslint/no-unnecessary-condition':           ['warn', { allowConstantLoopConditions: true }],

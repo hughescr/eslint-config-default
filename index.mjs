@@ -3,7 +3,8 @@ import js            from '@eslint/js';
 import n             from 'eslint-plugin-n';
 import lodash        from 'eslint-plugin-lodash';
 import promise       from 'eslint-plugin-promise';
-import comments      from 'eslint-plugin-eslint-comments';
+import comments      from '@eslint-community/eslint-plugin-eslint-comments';
+import { fixupPluginRules } from '@eslint/compat';
 import regexp        from 'eslint-plugin-regexp';
 import stylistic     from '@stylistic/eslint-plugin';
 import packageJson   from 'eslint-plugin-package-json';
@@ -14,15 +15,15 @@ import isArray       from 'lodash/isArray.js';
 import map           from 'lodash/map.js';
 
 const recommendedRules = {
-    'eslint-comments/disable-enable-pair':   ['warn', { allowWholeFile: true }],
-    'eslint-comments/no-aggregating-enable': 'off',
-    'eslint-comments/no-duplicate-disable':  'warn',
-    'eslint-comments/no-restricted-disable': 'off',
-    'eslint-comments/no-unlimited-disable':  'warn',
-    'eslint-comments/no-unused-disable':     'warn',
-    'eslint-comments/no-unused-enable':      'warn',
-    'eslint-comments/no-use':                ['warn', { allow: ['eslint-disable', 'eslint-enable', 'eslint-disable-line', 'eslint-disable-next-line'] }],
-    'eslint-comments/require-description':   'warn',
+    '@eslint-community/eslint-comments/disable-enable-pair':   ['warn', { allowWholeFile: true }],
+    '@eslint-community/eslint-comments/no-aggregating-enable': 'off',
+    '@eslint-community/eslint-comments/no-duplicate-disable':  'warn',
+    '@eslint-community/eslint-comments/no-restricted-disable': 'off',
+    '@eslint-community/eslint-comments/no-unlimited-disable':  'warn',
+    '@eslint-community/eslint-comments/no-unused-disable':     'warn',
+    '@eslint-community/eslint-comments/no-unused-enable':      'warn',
+    '@eslint-community/eslint-comments/no-use':                ['warn', { allow: ['eslint-disable', 'eslint-enable', 'eslint-disable-line', 'eslint-disable-next-line'] }],
+    '@eslint-community/eslint-comments/require-description':   'warn',
 
     'lodash/callback-binding':        'warn',
     'lodash/chain-style':             ['warn', 'as-needed'],
@@ -190,11 +191,11 @@ const javascriptConfig = {
         },
     },
     plugins: {
-        '@stylistic':      stylistic,
+        '@stylistic':                        stylistic,
         n,
-        lodash,
+        lodash:                              fixupPluginRules(lodash),
         promise,
-        'eslint-comments': comments,
+        '@eslint-community/eslint-comments': comments,
         regexp,
     },
     rules: {

@@ -68,12 +68,14 @@ const recommendedRules = {
     'lodash/prop-shorthand':          ['warn', 'always'],
     'lodash/unwrap':                  'warn',
 
-    'n/callback-return':      ['error', ['callback', 'cb', 'next', 'done']],
-    'n/handle-callback-err':  'warn',
-    'n/no-extraneous-import': 'off',
-    'n/no-path-concat':       'error',
-    'n/no-sync':              'warn',
-    'n/no-callback-literal':  'error',
+    'n/callback-return':                       ['error', ['callback', 'cb', 'next', 'done']],
+    'n/handle-callback-err':                   'warn',
+    'n/no-extraneous-import':                  'off',
+    'n/no-path-concat':                        'error',
+    'n/no-sync':                               'warn',
+    'n/no-callback-literal':                   'error',
+    'n/no-unsupported-features/node-builtins': 'off', // Bun has everything
+    'n/no-unsupported-features/es-syntax':     'off', // Bun has everything
 
     'promise/always-return':   'warn',
     'promise/catch-or-return': 'warn',

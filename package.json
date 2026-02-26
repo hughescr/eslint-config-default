@@ -1,6 +1,6 @@
 {
   "name": "@hughescr/eslint-config-default",
-  "version": "5.0.4",
+  "version": "5.0.5",
   "description": "Default base config for eslint",
   "repository": {
     "type": "git",

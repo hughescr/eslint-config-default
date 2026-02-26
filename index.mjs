@@ -328,11 +328,49 @@ const typescriptOverrides = {
     },
 };
 
+const testOverrides = {
+    files: ['**/*.{test,spec}.{js,cjs,mjs,jsx,ts,cts,mts,tsx}'],
+    name:  '@hughescr/eslint-config/test-overrides',
+    rules: {
+        // Mock assertions: expect(mock.method).toHaveBeenCalled() requires unbound references
+        '@typescript-eslint/unbound-method':          'off',
+        // Mock callbacks: () => {} is idiomatic for stubs
+        '@typescript-eslint/no-empty-function':       'off',
+        // Tests intentionally throw non-Error objects (HTTP error objects, strings)
+        '@typescript-eslint/only-throw-error':        'off',
+        // Mock type interactions produce unavoidable unsafe patterns
+        '@typescript-eslint/no-unsafe-assignment':    'off',
+        '@typescript-eslint/no-unsafe-member-access': 'off',
+        '@typescript-eslint/no-unsafe-call':          'off',
+        '@typescript-eslint/no-unsafe-argument':      'off',
+        '@typescript-eslint/no-unsafe-return':        'off',
+        // Spreading mock class instances is idiomatic test pattern
+        '@typescript-eslint/no-misused-spread':       'off',
+        // Mock callbacks use () => value; lodash _.constant() doesn't compose with test frameworks' mock()
+        'lodash/prefer-constant':                     'off',
+        // Same for () => {} vs _.noop
+        'lodash/prefer-noop':                         'off',
+        // Test generators that throw before yielding are intentional
+        'require-yield':                              'off',
+        // Same intent as require-yield (sonarjs duplicate)
+        'sonarjs/generator-without-yield':            'off',
+        // Test fixtures use fake tokens and secrets
+        // eslint-disable-next-line sonarjs/no-hardcoded-passwords -- I need to reference the rule to turn it off!
+        'sonarjs/no-hardcoded-passwords':             'off',
+        'sonarjs/no-hardcoded-secrets':               'off',
+        // Tests legitimately use /tmp paths
+        'sonarjs/publicly-writable-directories':      'off',
+        // Test helpers scoped in describe/it for closure access
+        'unicorn/consistent-function-scoping':        'off',
+    },
+};
+
 export default defineConfig(
     javascriptConfig,
     ...typeCheckedConfigs,
     ...stylisticTypeCheckedConfigs,
     typescriptExtensionRules,
     typescriptOverrides,
+    testOverrides,
     packageJsonConfig
 );

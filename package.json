@@ -1,6 +1,6 @@
 {
   "name": "@hughescr/eslint-config-default",
-  "version": "5.0.5",
+  "version": "5.1.0",
   "description": "Default base config for eslint",
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "eslint-formatter-git-log": "^0.6.4",
     "eslint-plugin-import-x": "^4.16.1",
     "eslint-plugin-lodash": "^8.0.0",
+    "eslint-plugin-lodash-es": "^1.2.0",
     "eslint-plugin-n": "^17.24.0",
     "eslint-plugin-package-json": "^0.89.1",
     "eslint-plugin-promise": "^7.2.1",

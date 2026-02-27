@@ -5,6 +5,7 @@ import stylistic     from '@stylistic/eslint-plugin';
 import { defineConfig } from 'eslint/config';
 import importX       from 'eslint-plugin-import-x';
 import lodash        from 'eslint-plugin-lodash';
+import lodashEs      from 'eslint-plugin-lodash-es';
 import n             from 'eslint-plugin-n';
 import packageJson   from 'eslint-plugin-package-json';
 import promise       from 'eslint-plugin-promise';
@@ -33,7 +34,7 @@ const recommendedRules = {
     'lodash/collection-return':       'warn',
     'lodash/consistent-compose':      ['warn', 'flow'],
     'lodash/identity-shorthand':      ['warn', 'always'],
-    'lodash/import-scope':            ['warn', 'method'],
+    'lodash/import-scope':            'off',
     'lodash/matches-prop-shorthand':  'warn',
     'lodash/matches-shorthand':       ['warn', 'always', 3],
     'lodash/no-commit':               'warn',
@@ -41,32 +42,38 @@ const recommendedRules = {
     'lodash/no-extra-args':           'warn',
     'lodash/no-unbound-this':         'warn',
     'lodash/path-style':              ['warn', 'as-needed'],
-    'lodash/prefer-compact':          'warn',
-    'lodash/prefer-constant':         'warn',
-    'lodash/prefer-filter':           'warn',
-    'lodash/prefer-find':             'warn',
-    'lodash/prefer-flat-map':         'warn',
-    'lodash/prefer-get':              'warn',
+    'lodash/prefer-compact':          'off',
+    'lodash/prefer-constant':         'off',
+    'lodash/prefer-filter':           'off',
+    'lodash/prefer-find':             'off',
+    'lodash/prefer-flat-map':         'off',
+    'lodash/prefer-get':              'off',
     'lodash/prefer-immutable-method': 'warn',
-    'lodash/prefer-includes':         ['warn', { includeNative: true }],
-    'lodash/prefer-invoke-map':       'warn',
+    'lodash/prefer-includes':         'off',
+    'lodash/prefer-invoke-map':       'off',
     'lodash/prefer-is-nil':           'off',
-    'lodash/prefer-lodash-chain':     'warn',
-    'lodash/prefer-lodash-method':    ['warn', { ignoreMethods: ['includes'] }],
-    'lodash/prefer-lodash-typecheck': 'warn',
-    'lodash/prefer-map':              'warn',
-    'lodash/prefer-matches':          ['warn', 3],
-    'lodash/prefer-noop':             'warn',
+    'lodash/prefer-lodash-chain':     'off',
+    'lodash/prefer-lodash-method':    'off',
+    'lodash/prefer-lodash-typecheck': 'off',
+    'lodash/prefer-map':              'off',
+    'lodash/prefer-matches':          'off',
+    'lodash/prefer-noop':             'off',
     'lodash/prefer-over-quantifier':  'off',
     'lodash/prefer-reject':           'off',
-    'lodash/prefer-some':             ['warn', { includeNative: true }],
-    'lodash/prefer-startswith':       'warn',
-    'lodash/prefer-thru':             'warn',
-    'lodash/prefer-times':            'warn',
-    'lodash/prefer-wrapper-method':   'warn',
+    'lodash/prefer-some':             'off',
+    'lodash/prefer-startswith':       'off',
+    'lodash/prefer-thru':             'off',
+    'lodash/prefer-times':            'off',
+    'lodash/prefer-wrapper-method':   'off',
     'lodash/preferred-alias':         'warn',
     'lodash/prop-shorthand':          ['warn', 'always'],
     'lodash/unwrap':                  'warn',
+
+    'lodash-es/enforce-destructuring':       'warn',
+    'lodash-es/no-chaining':                 'off',
+    'lodash-es/no-method-imports':           'warn',
+    'lodash-es/enforce-functions':           'warn',
+    'lodash-es/suggest-native-alternatives': 'warn',
 
     'n/callback-return':                       ['error', ['callback', 'cb', 'next', 'done']],
     'n/handle-callback-err':                   'warn',
@@ -156,6 +163,7 @@ const recommendedRules = {
     'no-param-reassign':            ['warn', { props: false }],
     'no-promise-executor-return':   'error',
     'no-redeclare':                 ['error', { builtinGlobals: true }],
+    'no-restricted-imports':        ['warn', { paths: [{ name: 'lodash', message: 'Use lodash-es instead for proper ESM tree-shaking.' }] }],
     'no-return-assign':             ['error', 'always'],
     'no-self-compare':              'error',
     'no-sequences':                 'error',
@@ -231,7 +239,6 @@ function buildTypescriptExtensionRules(rules) {
         const base = tsRule?.meta?.docs?.extendsBaseRule;
         if(base === true) {
             jsToTsMap[tsRuleName] = tsRuleName;
-        // eslint-disable-next-line lodash/prefer-lodash-typecheck -- avoiding lodash dependency for this simple config package
         } else if(typeof base === 'string') {
             jsToTsMap[base] = tsRuleName;
         }
@@ -263,6 +270,7 @@ const javascriptConfig = {
         '@stylistic':                        stylistic,
         n,
         lodash:                              fixupPluginRules(lodash),
+        'lodash-es':                         lodashEs,
         promise,
         '@eslint-community/eslint-comments': comments,
         regexp,
@@ -275,6 +283,7 @@ const javascriptConfig = {
         ...(stylistic.configs.recommended.rules),
         ...(n.configs.recommended.rules),
         ...(lodash.configs.recommended.rules),
+        ...(lodashEs.configs.recommended[0].rules),
         ...(promise.configs.recommended.rules),
         ...(comments.configs.recommended.rules),
         ...(regexp.configs.recommended.rules),
@@ -307,9 +316,7 @@ const withTypeInformation = config => ({
     },
 });
 
-// eslint-disable-next-line lodash/prefer-lodash-method -- avoiding lodash dependency for this simple config package
 const typeCheckedConfigs          = tseslint.configs.recommendedTypeChecked.map(config => withTypeInformation(config));
-// eslint-disable-next-line lodash/prefer-lodash-method -- avoiding lodash dependency for this simple config package
 const stylisticTypeCheckedConfigs = tseslint.configs.stylisticTypeChecked.map(config => withTypeInformation(config));
 
 const typescriptExtensionRules = {
@@ -348,10 +355,6 @@ const testOverrides = {
         '@typescript-eslint/no-unsafe-return':        'off',
         // Spreading mock class instances is idiomatic test pattern
         '@typescript-eslint/no-misused-spread':       'off',
-        // Mock callbacks use () => value; lodash _.constant() doesn't compose with test frameworks' mock()
-        'lodash/prefer-constant':                     'off',
-        // Same for () => {} vs _.noop
-        'lodash/prefer-noop':                         'off',
         // Test generators that throw before yielding are intentional
         'require-yield':                              'off',
         // Same intent as require-yield (sonarjs duplicate)

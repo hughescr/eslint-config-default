@@ -1,6 +1,7 @@
 {
   "permissions": {
     "allow": [
+      "WebFetch(*)",
       "mcp__plugin_generic-dev_DevTools__*",
       "mcp__plugin_javascript_nodejs-packages__*"
     ],

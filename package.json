@@ -23,6 +23,8 @@
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@eslint/compat": "^2.0.0",
     "@eslint/js": "^10.0.1",
+    "@hughescr/eslint-plugin-module-boundaries": "^1.0.0",
+    "@hughescr/eslint-plugin-test-hygiene": "^1.0.0",
     "@stylistic/eslint-plugin": "^5.9.0",
     "eslint": "^10.0.2",
     "eslint-formatter-git-log": "^0.6.4",

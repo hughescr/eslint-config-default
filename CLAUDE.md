@@ -68,6 +68,10 @@ These conventions are enforced by this config on itself and on any consuming pro
 
 - **ESLint v10** flat config with `defineConfig()`
 - **Key plugins**: `@stylistic`, `typescript-eslint`, `import-x`, `unicorn`, `sonarjs`, `lodash`, `n`, `promise`, `regexp`, `eslint-comments`, `package-json`
+- **Bundled custom plugins** (appended after the third-party configs in the `defineConfig()` call):
+  - `@hughescr/eslint-plugin-test-hygiene` — 4 test-hygiene rules, all `'error'` severity; the `recommended` config includes a `files`-agnostic block that fires on any file
+  - `@hughescr/eslint-plugin-module-boundaries` — 3 module-boundary rules; `no-internal-in-barrel` and `no-star-export-from-non-barrel` are `'error'` by default; `no-cross-module-internal` is overridden to `'off'` because it requires a project-specific `modules` option — consumers enable it with their own override
+  - Rule severities are driven by each plugin's `configs.recommended.rules`; to adjust, check the `recommended` export in those plugins
 - **`@eslint/compat`** `fixupPluginRules` is used for the `lodash` plugin, which does not yet support native flat config
 
 Note: `eslint-disable` comments exist in `index.mjs` itself to suppress lodash plugin warnings (since the config file does not use lodash as a runtime dependency).

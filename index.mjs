@@ -1,6 +1,8 @@
 import { fixupPluginRules } from '@eslint/compat';
 import js            from '@eslint/js';
 import comments      from '@eslint-community/eslint-plugin-eslint-comments';
+import moduleBoundariesPlugin from '@hughescr/eslint-plugin-module-boundaries';
+import testHygienePlugin      from '@hughescr/eslint-plugin-test-hygiene';
 import stylistic     from '@stylistic/eslint-plugin';
 import { defineConfig } from 'eslint/config';
 import importX       from 'eslint-plugin-import-x';
@@ -377,5 +379,12 @@ export default defineConfig(
     typescriptExtensionRules,
     typescriptOverrides,
     testOverrides,
-    packageJsonConfig
+    packageJsonConfig,
+    testHygienePlugin.configs.recommended,
+    moduleBoundariesPlugin.configs.recommended,
+    // `no-cross-module-internal` requires a project-specific `modules` option — off by default.
+    // Consumers that define module boundaries should enable it with their own `modules` config.
+    {
+        rules: { '@hughescr/module-boundaries/no-cross-module-internal': 'off' },
+    }
 );

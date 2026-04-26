@@ -362,7 +362,6 @@ const testOverrides = {
         // Same intent as require-yield (sonarjs duplicate)
         'sonarjs/generator-without-yield':            'off',
         // Test fixtures use fake tokens and secrets
-        // eslint-disable-next-line sonarjs/no-hardcoded-passwords -- I need to reference the rule to turn it off!
         'sonarjs/no-hardcoded-passwords':             'off',
         'sonarjs/no-hardcoded-secrets':               'off',
         // Tests legitimately use /tmp paths
